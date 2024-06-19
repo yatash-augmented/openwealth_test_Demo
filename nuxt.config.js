@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
-
+import path from 'path'
+import fs from 'fs'
 export default {
   devtools: { enabled: true },
 
@@ -15,6 +16,12 @@ export default {
   //     }
   // },
 
+  devServer: {
+    https: {
+      key: 'localhost-key.pem',
+      cert: 'localhost.pem'
+    }
+  },
 
 
   generate: {
@@ -82,7 +89,7 @@ serverMiddleware:[
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
   axios: {
-  // proxy: true, // Can be also an object with default options
+   proxy: true, // Can be also an object with default options
   //prefix: process.env.API_URL
   },
 
@@ -90,10 +97,9 @@ serverMiddleware:[
   proxy: {
 
     "/cinchy/": {
-      target: "https://openwealth.network",
+     target: "https://openwealth.network",
+     // target:"http://openwealthfi.com/AssetManagement",
       pathRewrite: { "^/cinchy/": "/" },
-      changeOrigin: true,
-
     },
     },
 
@@ -109,7 +115,7 @@ serverMiddleware:[
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -127,9 +133,12 @@ serverMiddleware:[
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-  // server: {
-  //   host: "0.0.0.0",
-  // },
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem'))
+    }
+  },
 
   ssr: false,
 

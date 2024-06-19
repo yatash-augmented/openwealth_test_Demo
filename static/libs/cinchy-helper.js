@@ -9,7 +9,7 @@ function getCinchySesionData(callback) {
    // The callback function that gets executed after login
    silent_refresh_enabled: true,
    // (Optional) (Mandatory if silentRefreshEnabled = true) The silent refresh url
-   silent_redirect_uri: "http://localhost:3000/silent-refresh",
+   silent_redirect_uri: "https://localhost:3000/silent-refresh",
    user_loaded_callback: callback,
   });
   // return new CinchyJS({
